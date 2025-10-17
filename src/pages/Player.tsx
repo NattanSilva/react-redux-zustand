@@ -10,8 +10,7 @@ import { loadCourse } from '../store/slices/player'
 export function Player() {
   const dispatch = useAppDispatch()
   const modules = useAppSelector((state) => state.player.course?.modules)
-  const isCourseLoading = true
-  // const isCourseLoading = useAppSelector((state) => state.player.isLoading)
+  const isCourseLoading = useAppSelector((state) => state.player.isLoading)
 
   const { currentLesson } = useCurrentLesson()
 
