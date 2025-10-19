@@ -15,9 +15,9 @@ export function Video() {
 
   return (
     <div className='w-full bg-zinc-950 aspect-video'>
-      {isLoading ? (
+      {true ? (
         <div className='flex h-full items-center justify-center'>
-          <Loader className='w-6 h-6 text-zinc-400 animate-spin' />
+          <Loader className='w-12 h-12 text-zinc-400 animate-spin' />
         </div>
       ) : (
         <ReactPlayer

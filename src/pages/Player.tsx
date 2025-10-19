@@ -9,6 +9,7 @@ import { useCurrentLesson, useStore } from '../zustand-store'
 export function Player() {
   const course = useStore((store) => store.course)
   const load = useStore((store) => store.load)
+  const isLoading = useStore((store) => store.isLoading)
 
   const { currentLesson } = useCurrentLesson()
 
@@ -38,19 +39,30 @@ export function Player() {
           <div className='flex-1'>
             <Video />
           </div>
-          <aside className='w-80 absolute top-0 bottom-0 right-0 border-l divide-y-2 divide-zinc-900 border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800'>
-            {course?.modules &&
-              course?.modules.map((module, index) => {
-                return (
-                  <Module
-                    key={module.id}
-                    moduleIndex={index}
-                    title={module.title}
-                    amountOfLessons={module.lessons.length}
-                  />
-                )
-              })}
-          </aside>
+
+          {isLoading ? (
+            <aside className='w-80 py-10 px-8 flex flex-col justify-center gap-4 absolute divide-y-2 divide-zinc-900 top-0 bottom-0 right-0 border-l border-zinc-800 bg-zinc-900 scrollbar-none'>
+              <h3 className='font-semibold text-zinc-700 text-xl animate-pulse select-none'>
+                Buscando suas aulas...
+              </h3>
+              <div className='w-full h-4 rounded-md bg-zinc-800 animate-pulse [animation-delay:0s]'></div>
+              <div className='w-[45%] h-4 rounded-md bg-zinc-800 animate-pulse [animation-delay:0.2s]'></div>
+              <div className='w-[80%] h-4 rounded-md bg-zinc-800 animate-pulse [animation-delay:0.4s]'></div>
+              <div className='w-[65%] h-4 rounded-md bg-zinc-800 animate-pulse [animation-delay:0.6s]'></div>
+              <div className='w-[95%] h-4 rounded-md bg-zinc-800 animate-pulse [animation-delay:0.8s]'></div>
+            </aside>
+          ) : (
+            <aside className='w-80 absolute divide-y-2 divide-zinc-900 top-0 bottom-0 right-0 border-l border-zinc-800 bg-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800'>
+              {course?.modules.map((module, index) => (
+                <Module
+                  key={module.id}
+                  title={module.title}
+                  amountOfLessons={module.lessons.length}
+                  moduleIndex={index}
+                />
+              ))}
+            </aside>
+          )}
         </main>
       </div>
     </div>
