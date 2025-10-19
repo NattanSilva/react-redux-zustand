@@ -5,12 +5,9 @@ import { useCurrentLesson, useStore } from '../zustand-store'
 export function Video() {
   const { currentLesson } = useCurrentLesson()
 
-  const { isLoading, next } = useStore((store) => {
-    return {
-      isLoading: store.isLoading,
-      next: store.next,
-    }
-  })
+  const isLoading = useStore((store) => store.isLoading)
+
+  const next = useStore((store) => store.next)
 
   function handlePlayNext() {
     next()
